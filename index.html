@@ -3,123 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebForge // NIGHTSHIFT SECURITY</title>
+    <title>WebForge Security & Arcade | Night Shift</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Pixel Art / Arcade -->
+    <!-- Google Fonts Pixel / Arcade -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #050505;
-            color: #ff3333;
+            background-color: #030000;
+            color: #ff2222;
             font-family: 'VT323', monospace;
-            font-size: 22px;
+            font-size: 24px;
             image-rendering: pixelated;
         }
-        h1, h2, h3, .pixel-title {
+        h1, h2, h3, .arcade-font {
             font-family: 'Press Start 2P', monospace;
         }
-        /* Efeito de TV Antiga / Arcade (Scanlines) */
-        .crt::before {
+        /* Efeito de TV CRT Antiga (Scanlines e Flicker) */
+        .crt-scanlines::after {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.5) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.6) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
             z-index: 999;
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
         }
-        /* Estilo Pixel Art Hardcore (Bordas duras) */
-        .pixel-box {
-            background: #000000;
-            border: 4px solid #8b0000;
-            box-shadow: 6px 6px 0px #300000;
+        /* Estilos Retro Pixel Art */
+        .pixel-card {
+            background: #080000;
+            border: 4px solid #660000;
+            box-shadow: 6px 6px 0px #200000;
         }
-        .pixel-box:hover {
+        .pixel-card:hover {
             border-color: #ff0000;
-            box-shadow: 6px 6px 0px #660000;
+            box-shadow: 6px 6px 0px #500000;
         }
-        .pixel-btn {
-            background: #8b0000;
+        .arcade-btn {
+            background: #800000;
             border: 3px solid #ff0000;
             color: #ffffff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
-            box-shadow: 4px 4px 0px #300000;
-            transition: all 0.1s ease;
+            font-size: 11px;
+            box-shadow: 4px 4px 0px #200000;
+            transition: all 0.05s ease;
         }
-        .pixel-btn:hover {
+        .arcade-btn:hover {
             background: #ff0000;
             color: #000000;
             transform: translate(-2px, -2px);
             box-shadow: 6px 6px 0px #500000;
         }
-        .pixel-input {
+        .arcade-input {
             background: #000000;
-            border: 3px solid #8b0000;
+            border: 3px solid #800000;
             color: #ff3333;
             font-family: 'VT323', monospace;
-            font-size: 24px;
+            font-size: 26px;
         }
-        .pixel-input:focus {
+        .arcade-input:focus {
             outline: none;
             border-color: #ff0000;
         }
     </style>
 </head>
-<body class="crt min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
+<body class="crt-scanlines min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
 
-    <!-- CABEÇALHO / CÂMERAS DE VIGILÂNCIA -->
-    <header class="sticky top-0 z-50 bg-black border-b-4 border-red-900 py-4 px-6">
+    <!-- CABEÇALHO / MONITOR DE TURNO (NIGHT SHIFT) -->
+    <header class="sticky top-0 z-50 bg-black border-b-4 border-red-900 py-3 px-4 sm:px-8">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-red-950 border-2 border-red-600 flex items-center justify-center text-red-500 text-xl">
-                    <i class="fa-solid fa-video animate-pulse"></i>
+                <div class="w-12 h-12 bg-red-950 border-3 border-red-600 flex items-center justify-center text-red-500 text-2xl shadow-[3px_3px_0px_#400000]">
+                    <i class="fa-solid fa-shield-cat animate-pulse"></i>
                 </div>
                 <div>
-                    <span class="pixel-title text-sm sm:text-base text-red-500">WEBFORGE // CAM 01</span>
-                    <span class="block text-xs text-red-700">STATUS: NIGHT WATCH ACTIVE</span>
+                    <span class="arcade-font text-xs sm:text-sm text-red-500">WEBFORGE // SECURITY OS</span>
+                    <span class="block text-xs text-red-700">12:00 AM — POWER USAGE: <span id="power-usage" class="text-yellow-500">2%</span></span>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-4">
-                <button onclick="abrirLogin()" class="pixel-btn px-4 py-3">
-                    [ ADMIN: ZAYRO ]
+            <!-- Botões de Câmera FNaF Interativos -->
+            <div class="flex items-center space-x-2 overflow-x-auto py-1">
+                <button onclick="mudarCamera(1)" class="arcade-btn px-3 py-2 text-[9px]">CAM 01</button>
+                <button onclick="mudarCamera(2)" class="arcade-btn px-3 py-2 text-[9px]">CAM 02</button>
+                <button onclick="mudarCamera(3)" class="arcade-btn px-3 py-2 text-[9px]">CAM 03</button>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="acionarAlarme()" class="arcade-btn bg-yellow-800 border-yellow-500 text-yellow-200 px-3 py-2 text-[9px]">PANIC</button>
+                <button onclick="abrirLogin()" class="arcade-btn px-4 py-2 text-[10px] bg-red-900">
+                    [ ZAYRO ADMIN ]
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
+    <!-- CONTEÚDO PRINCIPAL (ESTILO MONITOR DE SEGURANÇA) -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-10 w-full">
         
-        <!-- Bloco Principal Estilo Jogo -->
-        <section class="pixel-box p-8 mb-12 text-center relative overflow-hidden">
-            <div class="absolute top-2 right-2 text-xs text-red-800 pixel-title">WARNING: 12:00 AM</div>
-            <h1 class="pixel-title text-xl sm:text-3xl text-red-500 mb-6 leading-relaxed">
-                DESENVOLVIMENTO DIGITAL & AUTOMAÇÃO LETAL
-            </h1>
-            <p class="text-red-300 text-2xl max-w-3xl mx-auto mb-8">
-                Criamos sites e sistemas profissionais blindados para grandes e pequenos portes. Sobreviva no mercado digital com tecnologia de ponta vermelha e preta.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#portfolio" class="pixel-btn px-6 py-4 inline-block">VER SISTEMAS / PROJETOS</a>
+        <!-- Tela de Status da Câmera Ativa -->
+        <div class="pixel-card p-6 mb-10 text-center relative overflow-hidden bg-black">
+            <div class="absolute top-2 left-2 text-xs text-red-600 arcade-font animate-pulse" id="cam-indicator">MONITORING: [CAM 01 - MAIN OFFICE]</div>
+            <div class="absolute top-2 right-2 text-xs text-red-700 arcade-font">STATUS: SECURE</div>
+            
+            <div class="mt-6 mb-4">
+                <h1 class="arcade-font text-lg sm:text-2xl text-red-500 mb-4">
+                    DESENVOLVIMENTO DIGITAL & AUTOMAÇÃO CORPORATIVA
+                </h1>
+                <p class="text-red-300 text-2xl max-w-3xl mx-auto">
+                    Forjando sites e sistemas blindados para empresas de pequeno e grande porte. Monitore sua presença digital com segurança máxima 24 horas por dia.
+                </p>
+            </div>
+
+            <div class="flex justify-center gap-4 mt-6">
+                <a href="#portfolio" class="arcade-btn px-6 py-3 inline-block">ACESSAR BANCO DE DADOS</a>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE SERVIÇOS TÉCNICOS -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="pixel-card p-6">
+                <div class="text-red-500 text-3xl mb-3"><i class="fa-solid fa-code"></i></div>
+                <h3 class="arcade-font text-xs text-red-400 mb-2">SISTEMAS WEB B2B</h3>
+                <p class="text-red-300 text-xl">Criação de portais corporativos, e-commerces e páginas de alta performance.</p>
+            </div>
+            <div class="pixel-card p-6">
+                <div class="text-red-500 text-3xl mb-3"><i class="fa-solid fa-robot"></i></div>
+                <h3 class="arcade-font text-xs text-red-400 mb-2">AUTOMAÇÃO INTELIGENTE</h3>
+                <p class="text-red-300 text-xl">Fluxos automatizados e integração de dados para otimizar operações empresariais.</p>
+            </div>
+            <div class="pixel-card p-6">
+                <div class="text-red-500 text-3xl mb-3"><i class="fa-solid fa-lock"></i></div>
+                <h3 class="arcade-font text-xs text-red-400 mb-2">PAINEL BLINDADO</h3>
+                <p class="text-red-300 text-xl">Gerenciamento seguro de conteúdo com restrição de acesso administrativo.</p>
             </div>
         </section>
 
-        <!-- PORTFÓLIO / PROJETOS (CMS DINÂMICO) -->
+        <!-- PORTFÓLIO / TERMINAL DE PROJETOS (CMS) -->
         <section id="portfolio" class="mb-16">
-            <div class="border-b-2 border-red-900 pb-2 mb-8 flex justify-between items-end">
-                <h2 class="pixel-title text-sm sm:text-lg text-red-500">[ TERMINAL DE PROJETOS ]</h2>
-                <span class="text-xs text-red-700">SYNC OK</span>
+            <div class="border-b-2 border-red-900 pb-2 mb-6 flex justify-between items-end">
+                <h2 class="arcade-font text-xs sm:text-sm text-red-500">[ ARQUIVO DE PROJETOS / CLIENTES ]</h2>
+                <span class="text-xs text-red-700">LIVE SYNC</span>
             </div>
 
-            <!-- Grid de Projetos -->
+            <!-- Grid Dinâmico de Projetos -->
             <div id="grid-projetos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Preenchido via Script -->
+                <!-- Preenchido via JavaScript -->
             </div>
         </section>
 
@@ -127,84 +159,84 @@
 
     <!-- RODAPÉ -->
     <footer class="bg-black border-t-4 border-red-900 text-center py-6 text-red-700 text-sm">
-        <p>&copy; 2026 WEBFORGE SECURITY. ZAYRO ADMIN SYSTEM INITIALIZED.</p>
+        <p>&copy; 2026 WEBFORGE SECURITY SYSTEMS. ZAYRO ADMIN AUTHENTICATED.</p>
     </footer>
 
     <!-- MODAL DE LOGIN ADMIN -->
     <div id="modal-login" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
-        <div class="pixel-box p-8 max-w-md w-full relative">
-            <button onclick="fecharLogin()" class="absolute top-4 right-4 text-red-500 hover:text-white pixel-title text-sm">[X]</button>
+        <div class="pixel-card p-8 max-w-md w-full relative">
+            <button onclick="fecharLogin()" class="absolute top-4 right-4 text-red-500 hover:text-white arcade-font text-sm">[X]</button>
             <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-red-950 border-2 border-red-600 text-red-500 flex items-center justify-center mx-auto mb-3 text-xl">
-                    <i class="fa-solid fa-skull"></i>
+                <div class="w-12 h-12 bg-red-950 border-2 border-red-600 text-red-500 flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fa-solid fa-user-shield"></i>
                 </div>
-                <h3 class="pixel-title text-sm text-red-500">AUTENTICAÇÃO ADMIN</h3>
-                <p class="text-xs text-red-700 mt-1">ACESSO RESTRITO AO ZAYRO</p>
+                <h3 class="arcade-font text-xs text-red-500">TERMINAL DE ACESSO ZAYRO</h3>
+                <p class="text-xs text-red-700 mt-1">INSIRA CREDENCIAIS DE SEGURANÇA</p>
             </div>
             <form onsubmit="fazerLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs text-red-600 mb-1 pixel-title">USUÁRIO:</label>
-                    <input type="text" id="user-input" required class="pixel-input w-full p-3">
+                    <label class="block text-xs text-red-600 mb-1 arcade-font">USUÁRIO:</label>
+                    <input type="text" id="user-input" required class="arcade-input w-full p-3">
                 </div>
                 <div>
-                    <label class="block text-xs text-red-600 mb-1 pixel-title">SENHA:</label>
-                    <input type="password" id="pass-input" required class="pixel-input w-full p-3">
+                    <label class="block text-xs text-red-600 mb-1 arcade-font">SENHA:</label>
+                    <input type="password" id="pass-input" required class="arcade-input w-full p-3">
                 </div>
-                <button type="submit" class="pixel-btn w-full py-4 mt-2">ENTRAR NO SISTEMA</button>
-                <p id="login-erro" class="text-red-500 text-center text-sm hidden">ERRO: ACESSO NEGADO!</p>
+                <button type="submit" class="arcade-btn w-full py-4 mt-2">AUTENTICAR</button>
+                <p id="login-erro" class="text-red-500 text-center text-sm hidden mt-2 arcade-font">ERRO: ACESSO NEGADO!</p>
             </form>
         </div>
     </div>
 
-    <!-- PAINEL ADMINISTRATIVO (ZAYRO) -->
+    <!-- PAINEL ADMINISTRATIVO EXCLUSIVO DO ZAYRO -->
     <div id="modal-admin" class="fixed inset-0 z-50 bg-black/95 hidden overflow-y-auto p-4 sm:p-6">
-        <div class="pixel-box max-w-4xl mx-auto p-6 sm:p-8 my-8 relative">
+        <div class="pixel-card max-w-4xl mx-auto p-6 sm:p-8 my-8 relative">
             <div class="flex items-center justify-between pb-6 border-b-2 border-red-900 mb-6">
                 <div class="flex items-center space-x-4">
-                    <!-- EMBLEMA OFICIAL PERSONALIZADO -->
+                    <!-- EMBLEMA OFICIAL PERSONALIZADO DO ZAYRO -->
                     <div class="w-14 h-14 bg-red-950 border-4 border-red-600 flex items-center justify-center text-red-500 text-2xl shadow-[4px_4px_0px_#500000]">
                         <i class="fa-solid fa-crown"></i>
                     </div>
                     <div>
-                        <h3 class="pixel-title text-sm sm:text-base text-red-500 flex items-center gap-2">
+                        <h3 class="arcade-font text-xs sm:text-sm text-red-500 flex items-center gap-2">
                             <span>ZAYRO</span>
-                            <span class="text-[9px] bg-red-900 text-white px-2 py-0.5 border border-red-500">OFICIAL</span>
+                            <span class="text-[9px] bg-red-900 text-white px-2 py-0.5 border border-red-500">ADMIN OFICIAL</span>
                         </h3>
-                        <p class="text-xs text-red-700">PAINEL DE CONTROLE TOTAL & UPLOAD</p>
+                        <p class="text-xs text-red-700">CONTROLE TOTAL DE CONTEÚDO & UPLOAD</p>
                     </div>
                 </div>
-                <button onclick="fecharAdmin()" class="pixel-btn px-4 py-2">SAIR</button>
+                <button onclick="fecharAdmin()" class="arcade-btn px-4 py-2">SAIR</button>
             </div>
 
-            <!-- Adicionar Novo Projeto / Item -->
-            <div class="bg-black border-2 border-red-900 p-6 mb-8">
-                <h4 class="pixel-title text-xs text-red-500 mb-4">[ + ADICIONAR NOVO ITEM AO SITE ]</h4>
+            <!-- Adicionar Novo Projeto / Conteúdo com Upload de Imagem -->
+            <div class="pixel-card p-6 mb-8 bg-black">
+                <h4 class="arcade-font text-xs text-red-500 mb-4">[ + ADICIONAR NOVO PROJETO / ITEM ]</h4>
                 <form onsubmit="adicionarProjeto(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs text-red-600 mb-1 pixel-title">TÍTULO:</label>
-                            <input type="text" id="novo-titulo" required class="pixel-input w-full p-2 text-xl">
+                            <label class="block text-xs text-red-600 mb-1 arcade-font">TÍTULO:</label>
+                            <input type="text" id="novo-titulo" required class="arcade-input w-full p-2 text-xl" placeholder="Ex: Sistema Corporativo">
                         </div>
                         <div>
-                            <label class="block text-xs text-red-600 mb-1 pixel-title">CATEGORIA:</label>
-                            <input type="text" id="nova-categoria" required class="pixel-input w-full p-2 text-xl">
+                            <label class="block text-xs text-red-600 mb-1 arcade-font">CATEGORIA:</label>
+                            <input type="text" id="nova-categoria" required class="arcade-input w-full p-2 text-xl" placeholder="Ex: Automação / E-commerce">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs text-red-600 mb-1 pixel-title">DESCRIÇÃO:</label>
-                        <textarea id="nova-desc" required rows="2" class="pixel-input w-full p-2 text-xl"></textarea>
+                        <label class="block text-xs text-red-600 mb-1 arcade-font">DESCRIÇÃO:</label>
+                        <textarea id="nova-desc" required rows="2" class="arcade-input w-full p-2 text-xl" placeholder="Detalhes do projeto..."></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs text-red-600 mb-1 pixel-title">UPLOAD DE IMAGEM:</label>
+                        <label class="block text-xs text-red-600 mb-1 arcade-font">UPLOAD DE IMAGEM:</label>
                         <input type="file" id="novo-img" accept="image/*" class="w-full text-sm text-red-500 file:mr-4 file:py-2 file:px-4 file:border-2 file:border-red-600 file:text-xs file:font-bold file:bg-red-950 file:text-white hover:file:bg-red-900 cursor-pointer">
                     </div>
-                    <button type="submit" class="pixel-btn w-full py-3">PUBLICAR NO SITE</button>
+                    <button type="submit" class="arcade-btn w-full py-3">PUBLICAR NO SITE</button>
                 </form>
             </div>
 
-            <!-- Gerenciamento / Apagar -->
+            <!-- Gerenciamento / Exclusão de Itens -->
             <div>
-                <h4 class="pixel-title text-xs text-red-500 mb-4">[ GERENCIAR / EXCLUIR ITENS ]</h4>
+                <h4 class="arcade-font text-xs text-red-500 mb-4">[ GERENCIAR / EXCLUIR ITENS DO SITE ]</h4>
                 <div id="lista-gerenciamento" class="space-y-3">
                     <!-- Preenchido via JS -->
                 </div>
@@ -212,11 +244,11 @@
         </div>
     </div>
 
-    <!-- SCRIPTS DE CONTROLE -->
+    <!-- SCRIPTS DE CONTROLE E FUNCIONALIDADES -->
     <script>
-        let projetos = JSON.parse(localStorage.getItem('webforge_pixel_projetos')) || [
-            { id: 1, titulo: "Nightshift Corp Portal", categoria: "Corporativo B2B", desc: "Sistema automatizado de vigilância e vendas online.", img: "" },
-            { id: 2, titulo: "Red Security Web", categoria: "Automação Industrial", desc: "Plataforma avançada de controle e segurança digital.", img: "" }
+        let projetos = JSON.parse(localStorage.getItem('webforge_fnaf_v2_projetos')) || [
+            { id: 1, titulo: "Nightshift Enterprise B2B", categoria: "Automação Industrial", desc: "Sistema automatizado de controle de estoque e vendas corporativas.", img: "" },
+            { id: 2, titulo: "RedWatch Portal", categoria: "Landing Page", desc: "Plataforma de alta performance com segurança integrada.", img: "" }
         ];
 
         function renderizarProjetos() {
@@ -230,13 +262,13 @@
 
             projetos.forEach((p, index) => {
                 grid.innerHTML += `
-                    <div class="pixel-box p-6 flex flex-col justify-between">
+                    <div class="pixel-card p-6 flex flex-col justify-between">
                         <div>
-                            <div class="h-40 bg-black border-2 border-red-900 mb-4 flex items-center justify-center relative overflow-hidden">
-                                ${p.img ? `<img src="${p.img}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gamepad text-4xl text-red-800"></i>`}
-                                <span class="absolute top-2 left-2 bg-black text-red-500 text-xs px-2 py-0.5 border border-red-900 pixel-title">CAM 0${index + 1}</span>
+                            <div class="h-44 bg-black border-2 border-red-900 mb-4 flex items-center justify-center relative overflow-hidden">
+                                ${p.img ? `<img src="${p.img}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-tv text-4xl text-red-800 animate-pulse"></i>`}
+                                <span class="absolute top-2 left-2 bg-black text-red-500 text-xs px-2 py-0.5 border border-red-900 arcade-font">CAM 0${(index % 3) + 1}</span>
                             </div>
-                            <span class="text-xs text-red-600 pixel-title">[${p.categoria}]</span>
+                            <span class="text-xs text-red-600 arcade-font">[${p.categoria}]</span>
                             <h3 class="text-2xl text-red-500 my-1">${p.titulo}</h3>
                             <p class="text-red-300 text-lg mb-4">${p.desc}</p>
                         </div>
@@ -249,10 +281,24 @@
                             <span class="text-xl text-red-500 block">${p.titulo}</span>
                             <span class="text-xs text-red-700">[${p.categoria}]</span>
                         </div>
-                        <button onclick="apagarProjeto(${index})" class="pixel-btn px-3 py-2 bg-red-950 text-xs">EXCLUIR</button>
+                        <button onclick="apagarProjeto(${index})" class="arcade-btn px-3 py-2 bg-red-950 text-xs">EXCLUIR</button>
                     </div>
                 `;
             });
+        }
+
+        // Funções de Câmera FNaF
+        function mudarCamera(num) {
+            const indicator = document.getElementById('cam-indicator');
+            const cameras = ["MAIN OFFICE", "SERVER ROOM", "STORAGE & BACKUP"];
+            indicator.innerText = `MONITORING: [CAM 0${num} - ${cameras[num-1]}]`;
+            alert(`Conectado à Câmera 0${num} com sucesso!`);
+        }
+
+        function acionarAlarme() {
+            alert('ALERTA DE SEGURANÇA ATIVADO! Protocolos de defesa do WebForge acionados.');
+            document.body.style.backgroundColor = '#300000';
+            setTimeout(() => { document.body.style.backgroundColor = '#030000'; }, 500);
         }
 
         function abrirLogin() { document.getElementById('modal-login').classList.remove('hidden'); }
@@ -281,32 +327,32 @@
             e.preventDefault();
             const titulo = document.getElementById('novo-titulo').value;
             const categoria = document.getElementById('nova-categoria').value;
-            const desc = document.getElementById('novo-desc').value;
+            const desc = document.getElementById('nova-desc').value;
             const fileInput = document.getElementById('novo-img');
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(uploadEvent) {
                     projetos.push({ id: Date.now(), titulo, categoria, desc, img: uploadEvent.target.result });
-                    localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
+                    localStorage.setItem('webforge_fnaf_v2_projetos', JSON.stringify(projetos));
                     renderizarProjetos();
                     e.target.reset();
-                    alert('Item adicionado com sucesso ao sistema!');
+                    alert('Projeto publicado com sucesso no sistema!');
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
                 projetos.push({ id: Date.now(), titulo, categoria, desc, img: '' });
-                localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
+                localStorage.setItem('webforge_fnaf_v2_projetos', JSON.stringify(projetos));
                 renderizarProjetos();
                 e.target.reset();
-                alert('Item adicionado com sucesso ao sistema!');
+                alert('Projeto publicado com sucesso no sistema!');
             }
         }
 
         function apagarProjeto(index) {
-            if(confirm('Tem certeza que deseja excluir este item?')) {
+            if(confirm('Tem certeza que deseja excluir este item do banco de dados?')) {
                 projetos.splice(index, 1);
-                localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
+                localStorage.setItem('webforge_fnaf_v2_projetos', JSON.stringify(projetos));
                 renderizarProjetos();
             }
         }
