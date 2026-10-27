@@ -1,248 +1,222 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebForge Security & Digital | Nightshift Systems</title>
+    <title>WebForge // NIGHTSHIFT SECURITY</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        fnaf: { 500: '#eab308', 600: '#ca8a04', 900: '#713f12' },
-                        security: { dark: '#09090b', panel: '#18181b', alert: '#ef4444' }
-                    }
-                }
-            }
-        }
-    </script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Pixel Art / Arcade -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #f4f4f5; }
-        .tech-font { font-family: 'Share Tech Mono', monospace; }
-        .crt-overlay {
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+        body {
+            background-color: #050505;
+            color: #ff3333;
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            image-rendering: pixelated;
+        }
+        h1, h2, h3, .pixel-title {
+            font-family: 'Press Start 2P', monospace;
+        }
+        /* Efeito de TV Antiga / Arcade (Scanlines) */
+        .crt::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.5) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
         }
+        /* Estilo Pixel Art Hardcore (Bordas duras) */
+        .pixel-box {
+            background: #000000;
+            border: 4px solid #8b0000;
+            box-shadow: 6px 6px 0px #300000;
+        }
+        .pixel-box:hover {
+            border-color: #ff0000;
+            box-shadow: 6px 6px 0px #660000;
+        }
+        .pixel-btn {
+            background: #8b0000;
+            border: 3px solid #ff0000;
+            color: #ffffff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            box-shadow: 4px 4px 0px #300000;
+            transition: all 0.1s ease;
+        }
+        .pixel-btn:hover {
+            background: #ff0000;
+            color: #000000;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #500000;
+        }
+        .pixel-input {
+            background: #000000;
+            border: 3px solid #8b0000;
+            color: #ff3333;
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+        }
+        .pixel-input:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative selection:bg-amber-500 selection:text-black">
+<body class="crt min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
 
-    <!-- Efeito de Câmera Estilo FNaF (CRT Scanlines) -->
-    <div class="absolute inset-0 crt-overlay z-40 fixed pointer-events-none"></div>
-
-    <!-- Navegação / Monitor de Sistema -->
-    <header class="sticky top-0 z-50 bg-black/90 border-b border-amber-500/30 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- CABEÇALHO / CÂMERAS DE VIGILÂNCIA -->
+    <header class="sticky top-0 z-50 bg-black border-b-4 border-red-900 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(234,179,8,.3)]">
-                    <i class="fa-solid fa-shield-cat text-amber-400 text-xl"></i>
+                <div class="w-10 h-10 bg-red-950 border-2 border-red-600 flex items-center justify-center text-red-500 text-xl">
+                    <i class="fa-solid fa-video animate-pulse"></i>
                 </div>
                 <div>
-                    <span class="text-2xl font-black tracking-widest text-amber-400 tech-font">WEBFORGE // SEC</span>
-                    <span class="block text-[10px] text-amber-500/60 tech-font tracking-wider">SYSTEMS ACTIVE - SHIFT 01</span>
+                    <span class="pixel-title text-sm sm:text-base text-red-500">WEBFORGE // CAM 01</span>
+                    <span class="block text-xs text-red-700">STATUS: NIGHT WATCH ACTIVE</span>
                 </div>
             </div>
-            
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-zinc-400 tech-font tracking-wider">
-                <a href="#inicio" class="hover:text-amber-400 transition-colors">[CAM 01: INÍCIO]</a>
-                <a href="#servicos" class="hover:text-amber-400 transition-colors">[CAM 02: SERVIÇOS]</a>
-                <a href="#portfolio" class="hover:text-amber-400 transition-colors">[CAM 03: PORTFÓLIO]</a>
-            </nav>
 
             <div class="flex items-center space-x-4">
-                <button onclick="abrirLogin()" class="px-4 py-2 text-xs font-bold tech-font text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 rounded-lg transition-all flex items-center space-x-2 shadow-[0_0_10px_rgba(234,179,8,.2)]">
-                    <i class="fa-solid fa-lock text-xs"></i>
-                    <span>ADMIN LOGIN (ZAYRO)</span>
+                <button onclick="abrirLogin()" class="pixel-btn px-4 py-3">
+                    [ ADMIN: ZAYRO ]
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="flex-grow">
-        <!-- Hero Section Estilo FNaF Security -->
-        <section id="inicio" class="relative overflow-hidden py-24 lg:py-32 border-b border-zinc-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-950/20 via-black to-black">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs tech-font tracking-widest mb-6">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-500 animate-pulse"></i>
-                    <span>SEGURANÇA DIGITAL & AUTOMAÇÃO INDUSTRIAL</span>
-                </div>
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight max-w-4xl mx-auto leading-tight mb-8 text-zinc-100">
-                    Sua empresa protegida e automatizada 24h por <span class="text-amber-400 tech-font">WebForge</span>.
-                </h1>
-                <p class="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 font-light">
-                    Desenvolvimento de sites de alta performance com vigilância digital, painéis blindados e automações avançadas para grandes e pequenos negócios.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#servicos" class="w-full sm:w-auto px-8 py-4 rounded-lg font-bold tech-font bg-amber-500 hover:bg-amber-400 text-black shadow-[0_0_20px_rgba(234,179,8,.4)] transition-all text-center">
-                        ACESSAR SISTEMAS
-                    </a>
-                </div>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
+        
+        <!-- Bloco Principal Estilo Jogo -->
+        <section class="pixel-box p-8 mb-12 text-center relative overflow-hidden">
+            <div class="absolute top-2 right-2 text-xs text-red-800 pixel-title">WARNING: 12:00 AM</div>
+            <h1 class="pixel-title text-xl sm:text-3xl text-red-500 mb-6 leading-relaxed">
+                DESENVOLVIMENTO DIGITAL & AUTOMAÇÃO LETAL
+            </h1>
+            <p class="text-red-300 text-2xl max-w-3xl mx-auto mb-8">
+                Criamos sites e sistemas profissionais blindados para grandes e pequenos portes. Sobreviva no mercado digital com tecnologia de ponta vermelha e preta.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#portfolio" class="pixel-btn px-6 py-4 inline-block">VER SISTEMAS / PROJETOS</a>
             </div>
         </section>
 
-        <!-- Seção Dinâmica / CMS (Portfólio) -->
-        <section id="portfolio" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between mb-12 border-b border-zinc-800 pb-4">
-                <div>
-                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-amber-400 tech-font">[PORTFÓLIO DE PROJETOS]</h2>
-                    <p class="text-zinc-500 text-xs tech-font mt-1">DADOS SINCRONIZADOS COM O BANCO DE DADOS LOCAL</p>
-                </div>
-                <span class="text-xs text-zinc-500 tech-font hidden sm:inline">STATUS: OPERACIONAL</span>
+        <!-- PORTFÓLIO / PROJETOS (CMS DINÂMICO) -->
+        <section id="portfolio" class="mb-16">
+            <div class="border-b-2 border-red-900 pb-2 mb-8 flex justify-between items-end">
+                <h2 class="pixel-title text-sm sm:text-lg text-red-500">[ TERMINAL DE PROJETOS ]</h2>
+                <span class="text-xs text-red-700">SYNC OK</span>
             </div>
-            
-            <!-- Grid Dinâmico -->
+
+            <!-- Grid de Projetos -->
             <div id="grid-projetos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projetos injetados via script -->
+                <!-- Preenchido via Script -->
             </div>
         </section>
 
-        <!-- Seção de Serviços -->
-        <section id="servicos" class="py-20 bg-zinc-950 border-t border-b border-zinc-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-black tracking-tight mb-2 text-amber-400 tech-font">[PROTOCOLOS DE ATENDIMENTO]</h2>
-                    <p class="text-zinc-500 text-sm">Soluções estruturadas para manter seu negócio seguro e ativo.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/50 transition-all">
-                        <div class="w-12 h-12 rounded bg-amber-500/10 text-amber-400 flex items-center justify-center mb-6 text-xl border border-amber-500/30">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 text-zinc-100">Sistemas Web Sob Medida</h3>
-                        <p class="text-zinc-400 text-sm">Plataformas blindadas e responsivas desenvolvidas para pequenas e grandes empresas.</p>
-                    </div>
-                    <div class="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/50 transition-all">
-                        <div class="w-12 h-12 rounded bg-amber-500/10 text-amber-400 flex items-center justify-center mb-6 text-xl border border-amber-500/30">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 text-zinc-100">Automação Inteligente</h3>
-                        <p class="text-zinc-400 text-sm">Automatize processos repetitivos e ganhe eficiência operacional no seu dia a dia.</p>
-                    </div>
-                    <div class="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/50 transition-all">
-                        <div class="w-12 h-12 rounded bg-amber-500/10 text-amber-400 flex items-center justify-center mb-6 text-xl border border-amber-500/30">
-                            <i class="fa-solid fa-user-shield"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 text-zinc-100">Área Administrativa</h3>
-                        <p class="text-zinc-400 text-sm">Controle total de inserção e exclusão de conteúdo através de um painel de acesso restrito.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Rodapé -->
-    <footer class="border-t border-zinc-900 py-8 text-center text-xs text-zinc-600 tech-font">
-        <p>&copy; 2026 WebForge Security Systems. All Rights Reserved. Zayro Admin Authorized.</p>
+    <!-- RODAPÉ -->
+    <footer class="bg-black border-t-4 border-red-900 text-center py-6 text-red-700 text-sm">
+        <p>&copy; 2026 WEBFORGE SECURITY. ZAYRO ADMIN SYSTEM INITIALIZED.</p>
     </footer>
 
     <!-- MODAL DE LOGIN ADMIN -->
-    <div id="modal-login" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-amber-500/50 rounded-xl p-8 max-w-md w-full relative shadow-[0_0_30px_rgba(234,179,8,.2)]">
-            <button onclick="fecharLogin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+    <div id="modal-login" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
+        <div class="pixel-box p-8 max-w-md w-full relative">
+            <button onclick="fecharLogin()" class="absolute top-4 right-4 text-red-500 hover:text-white pixel-title text-sm">[X]</button>
             <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/40 text-amber-400 rounded-lg flex items-center justify-center mx-auto mb-3 text-xl">
-                    <i class="fa-solid fa-terminal"></i>
+                <div class="w-12 h-12 bg-red-950 border-2 border-red-600 text-red-500 flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-skull"></i>
                 </div>
-                <h3 class="text-xl font-bold text-amber-400 tech-font">SEGURANÇA DO ADMINISTRADOR</h3>
-                <p class="text-zinc-500 text-xs mt-1 tech-font">INSIRA SUAS CREDENCIAIS DE ACESSO</p>
+                <h3 class="pixel-title text-sm text-red-500">AUTENTICAÇÃO ADMIN</h3>
+                <p class="text-xs text-red-700 mt-1">ACESSO RESTRITO AO ZAYRO</p>
             </div>
             <form onsubmit="fazerLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Usuário</label>
-                    <input type="text" id="user-input" required class="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 tech-font">
+                    <label class="block text-xs text-red-600 mb-1 pixel-title">USUÁRIO:</label>
+                    <input type="text" id="user-input" required class="pixel-input w-full p-3">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Senha</label>
-                    <input type="password" id="pass-input" required class="w-full bg-black border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 tech-font">
+                    <label class="block text-xs text-red-600 mb-1 pixel-title">SENHA:</label>
+                    <input type="password" id="pass-input" required class="pixel-input w-full p-3">
                 </div>
-                <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 font-bold rounded-lg text-black tech-font shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-all">
-                    AUTENTICAR ACESSO
-                </button>
-                <p id="login-erro" class="text-red-500 text-xs text-center tech-font hidden">ACESSO NEGADO: Credenciais incorretas!</p>
+                <button type="submit" class="pixel-btn w-full py-4 mt-2">ENTRAR NO SISTEMA</button>
+                <p id="login-erro" class="text-red-500 text-center text-sm hidden">ERRO: ACESSO NEGADO!</p>
             </form>
         </div>
     </div>
 
-    <!-- MODAL DO PAINEL ADMIN (ZAYRO) -->
-    <div id="modal-admin" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden overflow-y-auto p-4 sm:p-6">
-        <div class="max-w-4xl mx-auto bg-zinc-900 border border-amber-500/50 rounded-xl p-6 sm:p-8 relative shadow-[0_0_40px_rgba(234,179,8,0.3)] my-8">
-            <div class="flex items-center justify-between pb-6 border-b border-zinc-800 mb-6">
+    <!-- PAINEL ADMINISTRATIVO (ZAYRO) -->
+    <div id="modal-admin" class="fixed inset-0 z-50 bg-black/95 hidden overflow-y-auto p-4 sm:p-6">
+        <div class="pixel-box max-w-4xl mx-auto p-6 sm:p-8 my-8 relative">
+            <div class="flex items-center justify-between pb-6 border-b-2 border-red-900 mb-6">
                 <div class="flex items-center space-x-4">
-                    <!-- Emblema Oficial Personalizado -->
-                    <div class="w-12 h-12 rounded-lg bg-gradient-to-tr from-amber-600 to-zinc-950 p-0.5 border border-amber-400">
-                        <div class="w-full h-full bg-black rounded-[6px] flex items-center justify-center text-amber-400 font-black text-xl shadow-[inset_0_0_10px_rgba(234,179,8,0.5)]">
-                            <i class="fa-solid fa-crown"></i>
-                        </div>
+                    <!-- EMBLEMA OFICIAL PERSONALIZADO -->
+                    <div class="w-14 h-14 bg-red-950 border-4 border-red-600 flex items-center justify-center text-red-500 text-2xl shadow-[4px_4px_0px_#500000]">
+                        <i class="fa-solid fa-crown"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white flex items-center gap-2 tech-font">
+                        <h3 class="pixel-title text-sm sm:text-base text-red-500 flex items-center gap-2">
                             <span>ZAYRO</span>
-                            <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded">ADMIN OFICIAL</span>
+                            <span class="text-[9px] bg-red-900 text-white px-2 py-0.5 border border-red-500">OFICIAL</span>
                         </h3>
-                        <p class="text-zinc-500 text-xs tech-font">PAINEL DE CONTROLE E UPLOAD DE CONTEÚDO</p>
+                        <p class="text-xs text-red-700">PAINEL DE CONTROLE TOTAL & UPLOAD</p>
                     </div>
                 </div>
-                <button onclick="fecharAdmin()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-xs font-semibold text-white tech-font transition-all">
-                    ENCERRAR SESSÃO
-                </button>
+                <button onclick="fecharAdmin()" class="pixel-btn px-4 py-2">SAIR</button>
             </div>
 
-            <!-- Adicionar Novo Projeto / Conteúdo -->
-            <div class="bg-black p-6 rounded-xl border border-zinc-800 mb-8">
-                <h4 class="text-md font-bold text-amber-400 mb-4 flex items-center gap-2 tech-font">
-                    <i class="fa-solid fa-plus-circle"></i>
-                    <span>ADICIONAR NOVO ITEM / PROJETO AO SITE</span>
-                </h4>
+            <!-- Adicionar Novo Projeto / Item -->
+            <div class="bg-black border-2 border-red-900 p-6 mb-8">
+                <h4 class="pixel-title text-xs text-red-500 mb-4">[ + ADICIONAR NOVO ITEM AO SITE ]</h4>
                 <form onsubmit="adicionarProjeto(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Título</label>
-                            <input type="text" id="novo-titulo" required placeholder="Ex: Sistema de Segurança B2B" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 text-sm">
+                            <label class="block text-xs text-red-600 mb-1 pixel-title">TÍTULO:</label>
+                            <input type="text" id="novo-titulo" required class="pixel-input w-full p-2 text-xl">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Categoria</label>
-                            <input type="text" id="nova-categoria" required placeholder="Ex: Automação / Corporativo" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 text-sm">
+                            <label class="block text-xs text-red-600 mb-1 pixel-title">CATEGORIA:</label>
+                            <input type="text" id="nova-categoria" required class="pixel-input w-full p-2 text-xl">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Descrição</label>
-                        <textarea id="nova-desc" required rows="2" placeholder="Detalhes do projeto..." class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-amber-500 text-sm"></textarea>
+                        <label class="block text-xs text-red-600 mb-1 pixel-title">DESCRIÇÃO:</label>
+                        <textarea id="nova-desc" required rows="2" class="pixel-input w-full p-2 text-xl"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-zinc-400 uppercase mb-1 tech-font">Upload de Imagem</label>
-                        <input type="file" id="novo-img" accept="image/*" class="w-full text-xs text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-black hover:file:bg-amber-400 cursor-pointer tech-font">
+                        <label class="block text-xs text-red-600 mb-1 pixel-title">UPLOAD DE IMAGEM:</label>
+                        <input type="file" id="novo-img" accept="image/*" class="w-full text-sm text-red-500 file:mr-4 file:py-2 file:px-4 file:border-2 file:border-red-600 file:text-xs file:font-bold file:bg-red-950 file:text-white hover:file:bg-red-900 cursor-pointer">
                     </div>
-                    <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 font-bold rounded-lg text-black tech-font shadow-[0_0_15px_rgba(234,179,8,0.3)] transition-all">
-                        PUBLICAR NO SISTEMA
-                    </button>
+                    <button type="submit" class="pixel-btn w-full py-3">PUBLICAR NO SITE</button>
                 </form>
             </div>
 
-            <!-- Lista de Gerenciamento / Exclusão -->
+            <!-- Gerenciamento / Apagar -->
             <div>
-                <h4 class="text-md font-bold text-amber-400 mb-4 tech-font">GERENCIAR ITENS EXISTENTES</h4>
+                <h4 class="pixel-title text-xs text-red-500 mb-4">[ GERENCIAR / EXCLUIR ITENS ]</h4>
                 <div id="lista-gerenciamento" class="space-y-3">
-                    <!-- Preenchido via JavaScript -->
+                    <!-- Preenchido via JS -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts de Controle -->
+    <!-- SCRIPTS DE CONTROLE -->
     <script>
-        let projetos = JSON.parse(localStorage.getItem('webforge_fnaf_projetos')) || [
-            { id: 1, titulo: "Sistema Nightshift Corp", categoria: "Automação Industrial", desc: "Plataforma de monitoramento e controle para grandes corporações.", img: "" },
-            { id: 2, titulo: "Security Watchdog Web", categoria: "Portal Corporativo", desc: "Solução completa de presença digital e segurança de dados.", img: "" }
+        let projetos = JSON.parse(localStorage.getItem('webforge_pixel_projetos')) || [
+            { id: 1, titulo: "Nightshift Corp Portal", categoria: "Corporativo B2B", desc: "Sistema automatizado de vigilância e vendas online.", img: "" },
+            { id: 2, titulo: "Red Security Web", categoria: "Automação Industrial", desc: "Plataforma avançada de controle e segurança digital.", img: "" }
         ];
 
         function renderizarProjetos() {
@@ -256,28 +230,26 @@
 
             projetos.forEach((p, index) => {
                 grid.innerHTML += `
-                    <div class="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden group hover:border-amber-500/50 transition-all">
-                        <div class="h-48 bg-black flex items-center justify-center relative overflow-hidden border-b border-zinc-800">
-                            ${p.img ? `<img src="${p.img}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-shield-halved text-4xl text-amber-500/40"></i>`}
-                            <div class="absolute top-2 left-2 bg-black/80 px-2 py-1 rounded text-[10px] text-amber-400 tech-font border border-amber-500/30">CAM 0${index + 1}</div>
-                        </div>
-                        <div class="p-6">
-                            <span class="text-[10px] font-semibold text-amber-500 uppercase tracking-widest tech-font">${p.categoria}</span>
-                            <h3 class="text-xl font-bold text-white mt-1 mb-2">${p.titulo}</h3>
-                            <p class="text-zinc-400 text-sm">${p.desc}</p>
+                    <div class="pixel-box p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="h-40 bg-black border-2 border-red-900 mb-4 flex items-center justify-center relative overflow-hidden">
+                                ${p.img ? `<img src="${p.img}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-gamepad text-4xl text-red-800"></i>`}
+                                <span class="absolute top-2 left-2 bg-black text-red-500 text-xs px-2 py-0.5 border border-red-900 pixel-title">CAM 0${index + 1}</span>
+                            </div>
+                            <span class="text-xs text-red-600 pixel-title">[${p.categoria}]</span>
+                            <h3 class="text-2xl text-red-500 my-1">${p.titulo}</h3>
+                            <p class="text-red-300 text-lg mb-4">${p.desc}</p>
                         </div>
                     </div>
                 `;
 
                 gerenciamento.innerHTML += `
-                    <div class="flex items-center justify-between p-4 bg-black border border-zinc-800 rounded-lg">
+                    <div class="flex items-center justify-between p-3 bg-black border-2 border-red-900">
                         <div>
-                            <h5 class="font-bold text-white text-sm">${p.titulo}</h5>
-                            <span class="text-[10px] text-zinc-500 tech-font">${p.categoria}</span>
+                            <span class="text-xl text-red-500 block">${p.titulo}</span>
+                            <span class="text-xs text-red-700">[${p.categoria}]</span>
                         </div>
-                        <button onclick="apagarProjeto(${index})" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded text-xs font-semibold tech-font transition-all">
-                            <i class="fa-solid fa-trash mr-1"></i> EXCLUIR
-                        </button>
+                        <button onclick="apagarProjeto(${index})" class="pixel-btn px-3 py-2 bg-red-950 text-xs">EXCLUIR</button>
                     </div>
                 `;
             });
@@ -309,14 +281,14 @@
             e.preventDefault();
             const titulo = document.getElementById('novo-titulo').value;
             const categoria = document.getElementById('nova-categoria').value;
-            const desc = document.getElementById('nova-desc').value;
+            const desc = document.getElementById('novo-desc').value;
             const fileInput = document.getElementById('novo-img');
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(uploadEvent) {
                     projetos.push({ id: Date.now(), titulo, categoria, desc, img: uploadEvent.target.result });
-                    localStorage.setItem('webforge_fnaf_projetos', JSON.stringify(projetos));
+                    localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
                     renderizarProjetos();
                     e.target.reset();
                     alert('Item adicionado com sucesso ao sistema!');
@@ -324,7 +296,7 @@
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
                 projetos.push({ id: Date.now(), titulo, categoria, desc, img: '' });
-                localStorage.setItem('webforge_fnaf_projetos', JSON.stringify(projetos));
+                localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
                 renderizarProjetos();
                 e.target.reset();
                 alert('Item adicionado com sucesso ao sistema!');
@@ -332,9 +304,9 @@
         }
 
         function apagarProjeto(index) {
-            if(confirm('Tem certeza que deseja apagar este item do sistema?')) {
+            if(confirm('Tem certeza que deseja excluir este item?')) {
                 projetos.splice(index, 1);
-                localStorage.setItem('webforge_fnaf_projetos', JSON.stringify(projetos));
+                localStorage.setItem('webforge_pixel_projetos', JSON.stringify(projetos));
                 renderizarProjetos();
             }
         }
